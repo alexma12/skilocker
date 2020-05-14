@@ -1,0 +1,55 @@
+<%- include("../partials/header") %>
+<div class = "img-thumbnail container text-center bg-white pb-4 pt-4 mt-5 mb-5" id = "watchlist-header">
+    <h1> ~ Your Watch List ~ </h1>
+</div>
+    <div class = "container">
+      <div class ="row text-center d-flex flex-wrap justify-content-start mb-2">
+      <% items.forEach(function(item){ %>
+        <div class = "col-lg-4 col-sm-6 col-12">
+          <div class = "card mb-5">
+
+      <% if(item.isSold){ %>
+          <span class = "bg-danger text-light pt-1 pb-1" id = "status-homepage" >
+            Sold
+          </span>
+      <% } else if(item.isPending) { %>
+          <span class = "bg-success text-light pt-1 pb-1" id = "status-homepage">
+            Pending
+          </span>
+      <%} else { %>
+          <span class = "bg-white text-white pt-1 pb-1" id = "status-homepage">
+            Selling
+          </span>
+      <%}%>
+      <img src= "<%= item.image %>" class = "card-img-top">
+      <div class = "card-header">
+          <h5> <%= item.name %> </h5>
+      </div>
+        <div class=" card-body bg-light">
+
+            <div class = "float-right">
+            <div class = "pb-3"> Condition: <%= item.condition %> </div>
+            <div class="label-primary" id="like"><i class="fas fa-thumbs-up"></i> <%= item.likes.length %></div>
+            </div>
+
+            <div class = "float-left">
+             <div class = "pb-3 pr-5" id="item-price">  $<%= item.price %> </div>
+              <div class = "pr-5"> <em><%= moment(item.createdAt).fromNow() %> </em> </div>
+            </div>
+
+
+          </div>
+
+            <div>
+              <div class = "card-footer" >
+              <a href= "/<%= item._id %>" class = "btn-sm btn-primary " > More Info </a>
+            </div>
+          </div>
+
+
+      </div>
+    </div>
+  <% }); %>
+  </div>
+</div>
+<%- include("../partials/footer") %>

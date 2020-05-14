@@ -1,0 +1,26 @@
+
+<%- include("./partials/loginHeader") %>
+  <div class = "container bg-light" id = "over">
+  <div class = "container">
+  <div class = "row login-page">
+    <div class = "col-md-6">
+      <div class = "login-portion mt-5">
+        <form action="/reset/<%= token %>" method="POST">
+          <b id="title" > Update Password </b>
+          <div class="form-group">
+            <input id= "newpass" type="password" name="password" value="" placeholder="New password" autofocus="autofocus" class="form-control mt-2"/>
+          </div>
+          <div class="form-group">
+            <input id= "newpass" type="password" name="confirm" value="" placeholder="Confirm password" class="form-control"/>
+          </div>
+        <button type="submit" class="btn btn-dark">Update Password</button>
+      </form>
+      </div>
+    </div>
+    <div class = "col-md-6 image-portion">
+      <img class = "img-icon" src= "https://image.flaticon.com/icons/svg/39/39455.svg">
+    </div>
+  </div>
+  </div>
+  </div>
+  <%- include("./partials/footer") %>

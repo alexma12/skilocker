@@ -1,0 +1,209 @@
+<%- include("../partials/header") %>
+<div class = "container mt-4">
+  <div class = "row">
+    <div class = "col-md-3 mt-5">
+        <% if (currentUser && !item.author.id.equals(currentUser.id)) {%>
+
+        <% if (currentUser.watchList.some(function (watchItem) { %>
+            <% return watchItem.equals(item._id) %>
+         <% })) { %>
+           <form action="/<%=item._id%>/<%=currentUser._id%>/watch-list" method = Post>
+            <button type="submit" class="btn btn-block btn-secondary" id="watchbutton">
+             Watching
+            </button>
+            </form>
+        <% } else { %>
+          <form action="/<%=item._id%>/<%=currentUser._id%>/watch-list" method = Post>
+            <button type="submit" class="btn btn-block btn-primary" id="watchbutton">
+             Watch Item
+            </button>
+            </form>
+        <% }} %>
+
+      <li class = "list-group-item">Contact Name: <%= item.contactName %> </li>
+      <li class = "list-group-item"> Contact Number: <%= item.phone %> </li>
+      <li class = "list-group-item"> Location: <%=item.location %> </li>
+      <div id ="map"> </div>
+    </div>
+    <div class = "col-md-9">
+      <div class = "card image-card">
+        <% if(item.isSold){ %>
+        <span class = "bg-danger text-light status">
+          Sold
+        </span>
+        <% } else if(item.isPending) { %>
+          <span class = "bg-success text-light status">
+            Pending
+          </span>
+        <%} else  {}%>
+        <img src= "<%= item.image %>" class = "card-img-top img-responsive ">
+        <div class="caption card-body">
+          <span class = row>
+            <% if (user.avatar){ %>
+            <div class = " badge">
+              <img id ="showPageAvatar" src = "<%= user.avatar%>">
+            </div>
+            <% } else { %>
+              <div class = " badge">
+                <img id ="showPageAvatar" src = "https://www.freepngimg.com/thumb/google/66726-customer-account-google-service-button-search-logo.png">
+              </div>
+            <% } %>
+            <div class = "col-md">
+            <em> <a href= "/users/<%= item.author.id %>"><b> <%= item.author.username %> </b> </a> </em>
+            <span class ="mb-2">
+              <div class=" ml-2 mb-1 btn-group" id="repView">
+                <span class=" text-success"id="repView">
+                  <i class="far fa-smile"></i>  (<%= user.goodReputation.length %>)
+                </span>
+                <span class=" text-danger"id="repView">
+                    <i class="far fa-smile"></i>  (<%= user.badReputation.length %>)
+                </span>
+              </div>
+              <span>
+            <div><em> Submitted <%= moment(item.createdAt).fromNow() %> </em> </div>
+            </div>
+
+          <span  class="mr-3">
+            <form action="/<%= item._id %>/like" method="POST">
+              <div class="btn-group mt-2">
+            <% if (currentUser && item.likes.some(function (like) { %>
+                <% return like.equals(currentUser._id) %>
+             <% })) { %>
+                <button class="btn btn-sm btn-primary">
+                    <i class="fas fa-thumbs-up"></i> Liked (<%= item.likes.length %>)
+                </button>
+            <% } else { %>
+                <button class="btn btn-sm btn-secondary">
+                    <i class="fas fa-thumbs-up"></i> Like (<%= item.likes.length %>)
+                </button>
+            <% } %>
+                <button type="button" class="btn btn-sm btn-outline-dark" data-toggle="modal"
+                    data-target="#itemLikes">See more
+                  </button>
+                </div>
+              </form>
+            </span>
+            </span>
+          <hr class="mt-4">
+          <h4 class = "float-right">$<%=item.price%></h4>
+
+          <h4> <b> <%= item.name %> </b> </h4>
+
+          <div class = "float-right ">Condition: <%= item.condition %> </div>
+
+          <p class="mt-4"> <%= item.description %> </p>
+          <% if (currentUser && item.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+            <a id = "edit-button" href="/<%= item._id %>/edit" class = "btn btn-success"><i class="fas fa-edit"></i></a>
+            <form id = "delete-form" action = "/<%= item._id %>?_method=DELETE" method = "Post">
+              <button class = "btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+            </form>
+            <%  } %>
+          </div>
+
+          <div class="card card-body bg-light pb-1">
+            <h5 id ="comment-title"> Comments </h5>
+            <hr>
+            <% item.comments.forEach(function(comment) { %>
+              <div class = "row">
+                <div class = "col-md-12">
+                  <div class= "float-left">
+                  <strong> <%= comment.author.username %> </strong>
+                  <p>
+                    <%= comment.text %>
+                  </p>
+                  </div>
+                  <span class ="float-right">
+                    <p> <%= moment(comment.createdAt).fromNow() %> </p>
+                   <div class = "float-right">
+                <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+                    <form id = "delete-form"
+                    action = "/<%=item._id%>/comments/<%=comment._id%>?_method=DELETE"
+                    method = "POST">
+                    <button class = "btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+
+                  </form>
+                    <% } %>
+                    </div>
+                </span>
+
+                </div>
+              </div>
+              <hr>
+              <% }); %>
+              <form action="/<%= item._id %>/comments" method="POST">
+                <div class = "form-group">
+                  <input class = "form-control" id= "comment-box" type= "text" name = "comment[text]" placeholder = "Write a comment...">
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+<div id="itemLikes" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Likes: <%= item.likes.length %></h5>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Liked by:</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% item.likes.forEach(function(like) { %>
+                        <tr>
+                            <td><span class="badge"><i class="fas fa-user"></i></span> <%= like.username %></td>
+                        </tr>
+                    <% }); %>
+                    <% if (item.likes.length === 0) { %>
+                        <tr>
+                            <td><em>No likes yet.</em></td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <script>
+  function initMap() {
+    var lat = <%= item.lat %>;
+    var lng = <%= item.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= item.name %><br />
+      <%= item.location %></strong>
+      <p><%= item.description %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+  </script>
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRpu7lQ16EWIfkLaQyohhCa8Mp0Fv0rEk&callback=initMap"></script>
+      <%- include("../partials/footer") %>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> SkiLocker </title>
+  <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel = "stylesheet" href = "/stylesheets/main.css">
+  <link href="https://fonts.googleapis.com/css?family=DM+Mono|Open+Sans|Titillium+Web|Ubuntu:700&display=swap" rel="stylesheet">
+</head>
+<body style = "padding-top: 60px;">
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top mb-0">
+    <div class = "container justify-content-center">
+      <a class = "navbar-brand" href="/"> <i class="fas fa-snowflake mr-2"></i>SkiLocker </a>
+    </div>
+  </nav>
+  <div>
+    <% if(error && error.length > 0){ %>
+      <div class = "alert alert-danger mt-0" role = "alert">
+        <%= error %>
+      </div>
+      <%  } %>
+      <% if(success && success.length > 0){ %>
+        <div class = "alert alert-success mt-0" role = "alert">
+          <%= success %>
+        </div>
+        <%  } %>
+      </div>

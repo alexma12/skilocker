@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> SkiLocker </title>
+  <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel = "stylesheet" href = "/stylesheets/main.css">
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+ <link href="https://fonts.googleapis.com/css?family=DM+Mono|Open+Sans|Titillium+Web|Ubuntu:700&display=swap" rel="stylesheet">
+</head>
+<body style = "padding-top: 60px;">
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
+
+    <div class = "container">
+      <a class = "navbar-brand" href="/"><i class="fas fa-snowflake mr-2"></i>SkiLocker </a>
+      <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target ="#navbarContent" aria-controls="navbarContent">
+        <span class = "navbar-toggler-icon"> </span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-start" id="navbarContent" >
+        <ul class="navbar-nav">
+          <li class="mx-1">
+            <a href="/" class="nav-link">Home</a>
+          </li>
+          <li class="mx-1">
+            <a href="/new" class="nav-link">Sell An Item</a>
+          </li>
+          <% if(currentUser){ %>
+          <li class="mx-1">
+            <a href="/<%=currentUser.id%>/watch-list" class="nav-link">Your Watch List</a>
+          </li>
+          <%}%>
+        </ul>
+      </div>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent" >
+        <ul class="navbar-nav">
+          <%  if (!currentUser){ %>
+            <li class="mx-1">
+              <a href="/login" class="nav-link">Login</a>
+            </li>
+            <li class="mx-1">
+              <a href="/register" class="nav-link">Sign Up</a>
+            </li>
+            <% } else if(currentUser.isAdmin){ %>
+              <% if (currentUser.avatar) {%>
+              <li class="mx-1 float-right">
+                <img class = "thumbnail" id="avatarImage" src = "<%= currentUser.avatar %>">
+              </li>
+                <%  } else { %>
+                <li class="mx-1 float-right">
+                  <img class = "thumbnail" id="avatarImage" src = "https://www.freepngimg.com/thumb/google/66726-customer-account-google-service-button-search-logo.png">
+                </li>
+                <% } %>
+              <li class="mx-1">
+                <a href= "/users/<%=currentUser.id%>" class="nav-link">ADMIN <%= currentUser.username %></a>
+              </li>
+              <li class="mx-1">
+                <a href="/logout" class="nav-link">Logout</a>
+              </li>
+              <%  } else { %>
+                  <% if (currentUser.avatar) {%>
+                <li class="mx-1 float-right">
+                  <img class = "thumbnail" id="avatarImage" src = "<%= currentUser.avatar %>">
+                </li>
+                  <%  } else { %>
+                  <li class="mx-1 float-right">
+                    <img class = "thumbnail" id="avatarImage"  src = "https://www.freepngimg.com/thumb/google/66726-customer-account-google-service-button-search-logo.png">
+                  </li>
+                  <% } %>
+                <li class="mx-1">
+                  <a href= "/users/<%=currentUser.id%>" class="nav-link"> <%= currentUser.username %></a>
+                </li>
+                <li class="mx-1">
+                  <a href="/logout" class="nav-link">Logout</a>
+                </li>
+              <%}%>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div>
+        <% if(error && error.length > 0){ %>
+          <div class = "alert alert-danger" role = "alert">
+            <%= error %>
+          </div>
+          <%  } %>
+          <% if(success && success.length > 0){ %>
+            <div class = "alert alert-success" role = "alert">
+              <%= success %>
+            </div>
+            <%  } %>
+          </div>

@@ -1,0 +1,175 @@
+<%- include("../partials/header") %>
+<div class = "container bg-white" id = "profile-container">
+<div class ="row">
+  <div class ="col-md-5" >
+    <div>
+    <%if(user.avatar) { %>
+      <% if(currentUser && currentUser.equals(user)) { %>
+      <span data-toggle="modal"  data-target="#editImage" >
+        <img class ="img-thumbnail" id = "avatarProfile"  src = "<%=user.avatar%>">
+      </span>
+    <% } else {%>
+      <img class = "img-thumbnail" id="avatarProfile" src = "<%=user.avatar%>">
+      <%}%>
+    <%  } else { %>
+      <% if(currentUser && currentUser.equals(user)) { %>
+      <span data-toggle="modal"  data-target="#editImage" >
+        <img class = "img-thumbnail" id="avatarProfile" src = "https://getdrawings.com/free-icon/default-user-icon-59.png">
+      </span>
+    <% } else {%>
+      <img class = "img-thumbnail" id="avatarProfile" src = "https://getdrawings.com/free-icon/default-user-icon-59.png">
+      <%}}%>
+
+    </div>
+  </div>
+
+  <div class = "col-md-6">
+    <div class ="container">
+    <div>
+  <h1 id="user-name"> <%= user.firstName + " " + user.lastName %> </h1>
+  </div>
+
+  <% if(currentUser && user._id.equals(currentUser.id)){ %>
+    <div class="btn-group ml-5 mr-5 mt-2 d-flex justify-content-center" id="ownAcc">
+      <span class="btn btn-lg btn-custom btn-success">
+        <i class="far fa-smile"></i>  (<%= user.goodReputation.length %>)
+      </span>
+      <span class="btn btn-lg btn-custom btn-danger">
+          <i class="far fa-smile"></i>  (<%= user.badReputation.length %>)
+      </span>
+    </div>
+
+
+
+ <%  } else { %>
+  <div class = "d-flex justify-content-center">
+    <form action="/users/<%= user._id %>/goodrep" method="POST">
+      <div class="btn-group mt-2 id="ownAcc"">
+
+    <% if (currentUser && user.goodReputation.some(function (rep) { %>
+        <% return rep.equals(currentUser._id) %>
+     <% })) { %>
+        <span>
+        <button class=" btn-custom btn-lg btn-success">
+          <i class="far fa-smile"></i>  (<%= user.goodReputation.length %>)
+        </button>
+        </span>
+
+    <% } else { %>
+      <span>
+        <button class="btn-custom btn-lg btn-outline-success" ">
+            <i class="far fa-smile"></i>  (<%= user.goodReputation.length %>)
+        </button>
+      </span>
+
+    <% } %>
+
+      </form>
+
+
+      <form action="/users/<%= user._id %>/badrep" method="POST">
+      <% if (currentUser && user.badReputation.some(function (rep) { %>
+          <% return rep.equals(currentUser._id) %>
+       <% })) { %>
+         <span>
+          <button class="btn btn-lg btn-custom btn-danger">
+            <i class="far fa-frown"></i> (<%= user.badReputation.length %>)
+          </button>
+          </span>
+            </div>
+            </div>
+
+      <% } else { %>
+        <span>
+          <button class="btn btn-lg btn-custom btn-outline-danger" >
+              <i class="far fa-frown"></i>  (<%= user.badReputation.length %>)
+          </button>
+          </span>
+            </div>
+          </div>
+      <% } %>
+
+<% } %>
+  </div>
+  </div>
+</div>
+  <div>
+    <h3 id="item-list" class = "mb-4"><%= user.username %>'s items:</h3>
+
+    <div class ="row text-center d-flex flex-wrap justify-content-start mb-2" id = "profile-background">
+      <% userItems.forEach(function(item){ %>
+      <div class = "col-lg-4 col-sm-6 col-12">
+        <div class = "card mb-5">
+
+    <% if(item.isSold){ %>
+        <span class = "bg-danger text-light pt-1 pb-1" id = "status-homepage" >
+          Sold
+        </span>
+    <% } else if(item.isPending) { %>
+        <span class = "bg-success text-light pt-1 pb-1" id = "status-homepage">
+          Pending
+        </span>
+    <%} else { %>
+        <span class = "bg-white text-white pt-1 pb-1" id = "status-homepage">
+          Selling
+        </span>
+    <%}%>
+    <img src= "<%= item.image %>" class = "card-img-top">
+    <div class = "card-header">
+        <h5> <%= item.name %> </h5>
+    </div>
+      <div class=" card-body bg-light">
+
+          <div class = "float-right">
+          <div class = "pb-3"> Condition: <%= item.condition %> </div>
+          <div class="label-primary" id="like"><i class="fas fa-thumbs-up"></i> <%= item.likes.length %></div>
+          </div>
+
+          <div class = "float-left">
+           <div class = "pb-3 pr-4" id="item-price">  $<%= item.price %> </div>
+            <div class = "pr-5"> <em><%= moment(item.createdAt).fromNow() %> </em> </div>
+          </div>
+
+
+        </div>
+
+          <div>
+            <div class = "card-footer" >
+            <a href= "/<%= item._id %>" class = "btn-sm btn-primary " > More Info </a>
+          </div>
+        </div>
+
+
+    </div>
+  </div>
+<% }); %>
+</div>
+</div>
+
+<form action="/users/<%= user.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+<div id="editImage" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+              Edit Profile Picture
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+              <input type="file" id="image" name="image" accept="image/*">
+            </div>
+            </div>
+            <span class="modal-footer">
+              <span class="float-left">
+                <button type="submit" class="btn btn-default" id="save-modal">Save</button>
+              </span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </span>
+
+        </div>
+    </div>
+</div>
+
+</form>
+
+<%- include("../partials/footer") %>

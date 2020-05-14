@@ -1,0 +1,32 @@
+  <%- include("./partials/loginHeader") %>
+  <div class = "container bg-light" id = "over">
+  <div class = "container">
+  <div class = "row login-page">
+    <div class = "col-md-6">
+      <div class = "login-portion">
+      <h5 id = "heading"> Login to SkiLocker </h5>
+      <div class = "pt-1 pb-3" id = "signup"> New to SkiLocker? <a href="/register">Sign up</a>
+        </div>
+      <form action="/login" method="POST">
+        <div id = "input-portion">
+        <input class = "form-control pl-1" type = "text" name = "username" placeholder = "Username">
+        <div>
+          <input class = "form-control pl-1" type = "password" name = "password" placeholder = "Password">
+        </div>
+      </div>
+        <p>
+          <a href = "/forgot" class = "ml-5">Forgot password?</a>
+        </p>
+        <button type="submit" class="btn btn-dark">Log In</button>
+      </form>
+      </div>
+    </div>
+
+    <div class = "col-md-6 image-portion">
+      <img class = "img-icon" src= "https://image.flaticon.com/icons/svg/39/39455.svg">
+    </div>
+  </div>
+  </div>
+</div>
+
+  <%- include("./partials/footer") %>

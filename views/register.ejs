@@ -1,0 +1,47 @@
+
+<%- include("./partials/loginHeader") %>
+  <div class = "container bg-light" id = "over">
+  <div class = "container">
+  <div class = "row login-page">
+    <div class = "col-md-6">
+      <div class = "login-portion">
+      <h5 id = "heading">  Sign Up For SkiLocker </h5>
+      <div class = "pt-1 pb-3" id = "signup"> Already Use SkiLocker?
+         <a href="/login"> Sign In </a>
+        </div>
+
+      <form action= "/register" method = "post">
+        <div id = "input-portion">
+        <input class = "form-control pl-1" type = "text" name = "username" placeholder = "Username">
+        <div>
+          <input class = "form-control pl-1" type = "password" name = "password" placeholder = "Password">
+        </div>
+        <div>
+        <input class = "form-control pl-1" type = "text" name = "firstName" placeholder = "First Name">
+        </div>
+        <div>
+          <input class = "form-control pl-1" type = "text" name = "lastName" placeholder = "Last Name">
+        </div>
+        <div>
+            <input class = "form-control pl-1" type = "email" name = "email" placeholder = "Email">
+         </div>
+        <div>
+          <input class = "form-control pl-1" type = "text" name = "adminCode" placeholder = "Admin Code (Optional)">
+        </div>
+        <div>
+        <button type="submit" class="btn btn-dark mt-3 form-control" id = "sign-up-button">Sign Up</button>
+        </div>
+        </div>
+
+      </form>
+      </div>
+    </div>
+
+    <div class = "col-md-6 image-portion">
+      <img class = "img-icon" src= "https://image.flaticon.com/icons/svg/39/39455.svg">
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <%- include("./partials/footer") %>

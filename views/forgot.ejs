@@ -1,0 +1,26 @@
+<%- include("./partials/loginHeader") %>
+  <div class = "container bg-light" id = "over">
+  <div class = "container">
+  <div class = "row login-page">
+    <div class = "col-md-6">
+      <div class = "login-portion mt-5">
+        <form action="/forgot" method = "POST">
+          <b id="title"> Forgot Password </b>
+          <div class = "form-group">
+            <p class ="mb-0" id ="forgot-quote"> Please enter your email address and you will </p>
+            <p class ="mt-0" id ="forgot-quote"> be sent instructions to reset your password </p>
+            <input type = "email" name ="email" autofocus class = "form-control" id ="email-input" placeholder="Email">
+          </div>
+        <button type="submit" class="btn btn-dark">Reset Password</button>
+      </form>
+      <a href= "/login" id="back"> Back </a>
+      </div>
+    </div>
+    <div class = "col-md-6 image-portion">
+      <img class = "img-icon" src= "https://image.flaticon.com/icons/svg/39/39455.svg">
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <%- include("./partials/footer") %>

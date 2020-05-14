@@ -1,0 +1,258 @@
+.navbar{
+  position: absolute;
+  margin-bottom: 0;
+}
+
+body{
+  width: 100%;
+  height: 100%;
+  position: absolute; /* allow our photos to take whole background */
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: repeat;
+  background-image: url(https://gallery.yopriceville.com/var/albums/Backgrounds/Snow_Background.jpg?m=1475398916);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+
+
+.login-portion{
+  text-align: center;
+  margin-left: 14%;
+  margin-top: 2rem;
+
+}
+
+.login-portion input{
+  width: 20rem;
+  margin-top: 0.5rem;
+
+}
+
+.login-portion p {
+  margin-left: 9rem;
+  margin-top: 0.5rem;
+}
+
+.login-portion button{
+  width: 20rem;
+}
+
+.login-portion #signup{
+  font-weight: 600;
+}
+
+.signup-portion{
+  text-align: center;
+  margin-left: 14%;
+  margin-top: 1rem;
+}
+
+.login-portion .heading{
+  font-size: 100px;
+}
+
+.image-portion .img-icon {
+  height: 23rem;
+  weight: 23rem;
+  margin-left: 4rem;
+
+}
+
+.navbar-brand {
+  font-size: 24px;
+}
+
+.alert{
+   text-align: center;
+   margin-bottom: 0;
+   margin-top: 0;
+}
+#name-edit{
+  width: 660px;
+}
+
+#text-edit{
+  min-height: 200px;
+}
+
+#submit-button{
+  display: inline;
+}
+
+#delete-form{
+  display: inline;
+}
+
+#input-portion{
+  margin-left: 65px;
+}
+
+#price-edit{
+ width: 6rem;
+ display: inline;
+}
+
+#comment-title{
+  margin-bottom: 0;
+}
+
+.status{
+  text-align: center;
+  font-size: 2.1rem;
+}
+
+#map{
+  height: 400px;
+  width:100%;
+}
+
+#sign-up-button{
+  float:left
+}
+
+#email-input{
+  margin-left: 65px;
+  margin-top: 20px;
+}
+
+#title{
+  font-size: 22px;
+  font-weight: 900;
+}
+
+#forgot-quote {
+  margin-left: 0px;
+}
+
+#newpass{
+    margin-left: 71px;
+}
+
+#back {
+  margin-left: 280px;
+}
+
+#over{
+  padding-top: 10rem;
+  height: 100%;
+  margin-top: 0;
+}
+
+#condition-edit{
+  width: 100%;
+}
+
+#like-button{
+  margin-top: 10px;
+  margin-botton: 10px;
+}
+
+#watchbutton{
+ height: 60px;
+ font-size: 20px;
+}
+
+
+#more-info{
+  padding-top: 42px;
+}
+
+#profile-container{
+  background-size: cover;
+  background-repeat: repeat;
+  height: 100%
+
+}
+
+.btn-custom{
+  width:200px;
+}
+
+.inline-buttons{
+  display: inline;
+}
+#imageEdit{
+  border: 2px dotted black;
+}
+
+#avatarProfile{
+  margin-bottom: 6rem;
+  margin-top: 6rem;
+  margin-left: 6rem;
+  width: 312px;
+  height: 312px;
+  border-radius: 50%;
+}
+
+
+
+#save-modal{
+  margin-right: 330px;
+}
+
+#user-name{
+  margin-top:180px;
+  margin-bottom: 30px;
+  display:block;
+  text-align: center;
+}
+
+#own-acc{
+  display: block;
+  padding-left: 50px;
+}
+
+#watchlist-header{
+  border-radius: 8%
+}
+
+#like{
+  margin-left:70px;
+}
+
+#item-price{
+  margin-right:60px;
+}
+
+#item-list{
+  text-align: center;
+}
+
+
+#profile-background{
+  background-color: #ebebeb;
+  padding-top: 30px;
+
+}
+
+#customColour{
+  background-color: #ebebeb;
+}
+
+#avatarImage{
+  padding-bottom: 0px;
+  padding-top: 0px;
+  border-radius: 50%;
+  margin-top: 6.5px;
+
+  height: 27px;
+  width: 27px;
+}
+
+#showPageAvatar{
+  margin-left: 10px;
+  border-radius: 50%;
+  height: 52px;
+  width: 52px;
+}
+
+#repView{
+  padding: 2px 4px;
+  font-size: 12px;
+}
+
+.watchItem{
+  background-color: blue;
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SkiLocker</title>
+  <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/homepage.css">
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=DM+Mono|Open+Sans|Titillium+Web|Ubuntu:700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+    <div class = "container">
+      <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target ="#navbarContent" aria-controls="navbarContent">
+        <span class = "navbar-toggler-icon"> </span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-start" id="navbarContent" >
+        <ul class="navbar-nav">
+          <li class="mx-1">
+            <a href="/" class="nav-link">Home</a>
+          </li>
+          <li class="mx-1">
+            <a href="/new" class="nav-link">Sell An Item</a>
+          </li>
+          <% if(currentUser){ %>
+          <li class="mx-1">
+            <a href="/<%=currentUser.id%>/watch-list" class="nav-link">Your Watch List</a>
+          </li>
+          <%}%>
+        </ul>
+      </div>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent" >
+        <ul class="navbar-nav">
+          <%  if (!currentUser){ %>
+          <li class="mx-1">
+            <a href="/login" class="nav-link">Login</a>
+          </li>
+          <li class="mx-1">
+            <a href="/register" class="nav-link">Signup</a>
+          </li>
+          <% } else if(currentUser.isAdmin){ %>
+          <li class="mx-1">
+            <a href= "/users/<%=currentUser.id%>" class="nav-link">ADMIN <%= currentUser.username %></a>
+          </li>
+          <li class="mx-1">
+            <a href="/logout" class="nav-link">Logout</a>
+          </li>
+          <%  } else { %>
+          <li class="mx-1">
+            <a href= "/users/<%=currentUser.id%>" class="nav-link"> <%= currentUser.username %></a>
+          </li>
+          <li class="mx-1">
+            <a href="/logout" class="nav-link">Logout</a>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class = "notification-bar fade-out">
+  <% if(error && error.length > 0){ %>
+    <div class = "alert alert-danger" role = "alert">
+  <%= error %>
+    </div>
+  <%  } %>
+
+  <% if(success && success.length > 0){ %>
+    <div class = "alert alert-success" role = "alert">
+  <%= success %>
+    </div>
+  <%  } %>
+  </div>
+
+  <div id="main-search-bar">
+    <p> <i class="fas fa-snowflake mr-2"></i>SkiLocker</p>
+    <h4 class = "mb-5"> A Wide Collection Of Skiing And Snowboarding Equipment </h4>
+    <form class="form-inline" action = "/" method = "GET">
+      <input id="search-bar" name = "search" class="form-control" type="search" placeholder="Search equipment" aria-label="Search">
+      <button class="btn btn-danger" type="submit">Search</button>
+    </form>
+  </div>
+
+  <ul class="slideshow">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+  </ul>
+
+  <div class = "container">
+    <div class ="row text-center d-flex flex-wrap justify-content-start mb-2">
+    <% items.forEach(function(item){ %>
+      <div class = "col-lg-4 col-sm-6 col-12">
+        <div class = "card mb-5">
+
+    <% if(item.isSold){ %>
+        <span class = "bg-danger text-light pt-1 pb-1" id = "status-homepage" >
+          Sold
+        </span>
+    <% } else if(item.isPending) { %>
+        <span class = "bg-success text-light pt-1 pb-1" id = "status-homepage">
+          Pending
+        </span>
+    <%} else { %>
+        <span class = "bg-white text-white pt-1 pb-1" id = "status-homepage">
+          Selling
+        </span>
+    <%}%>
+        <img src= "<%= item.image %>" class = "card-img-top">
+        <div class = "card-header">
+            <h5><%= item.name %></h5>
+        </div>
+          <span class=" card-body bg-light">
+            <span class = "float-left pr-5 ">
+             <span class = "pb-3 pr-5" id="item-price">$<%= item.price %></span>
+              <div class = "pr-5"> <em><%=moment(item.createdAt).fromNow()%></em></div>
+            </span>
+            <span class = "float-right">
+              <span class = "pb-3"> Condition: <%= item.condition %> </span>
+              <div class="label-primary" id="like"><i class="fas fa-thumbs-up"></i> <%= item.likes.length %></div>
+            </span>
+
+          </span>
+
+              <div>
+                <div class = "card-footer" >
+                <a href= "/<%= item._id %>" class = "btn-sm btn-primary" > More Info </a>
+              </div>
+            </div>
+
+        </div>
+      </div>
+    <% }); %>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="Page navigation">
+    <% if (pages && pages > 0) { %>
+    <ul class="pagination justify-content-center">
+        <% if (current == 1) { %>
+        <li class="page-item disabled"><a class="page-link">First</a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/<%if(search){%>?search=<%=search%><%}%>">First</a></li>
+        <% } %>
+
+        <% if (current == 1) { %>
+        <li class="page-item disabled"><a class="page-link">«</a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/?page=<%= Number(current) - 1 %><%if(search){%>&search=<%=search%><%}%>">«</a></li>
+        <% } %>
+
+        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+        <% if (i !== 1) { %>
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+        <% } %>
+        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+        <% if (i == current) { %>
+        <li class="active"><a class="page-link"><%= i %></a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/?page=<%= i %><%if(search){%>&search=<%=search%><%}%>"><%= i %></a></li>
+        <% } %>
+        <% if (i == Number(current) + 4 && i < pages) { %>
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+        <% } %>
+        <% } %>
+
+        <% if (current == pages) { %>
+        <li class="page-item disabled"><a class="page-link">»</a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/?page=<%= Number(current) + 1 %><%if(search){%>&search=<%=search%><%}%>">»</a></li>
+        <% } %>
+
+        <% if (current == pages) { %>
+        <li class="page-item disabled"><a class="page-link">Last</a></li>
+        <% } else { %>
+        <li><a class="page-link" href="/?page=<%= pages %><%if(search){%>&search=<%=search%><%}%>">Last</a></li>
+        <% } %>
+    </ul>
+    <% } %>
+</nav>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"
+        integrity="sha384-vhJnz1OVIdLktyixHY4Uk3OHEwdQqPppqYR8+5mjsauETgLOcEynD9oPHhhz18Nw"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"  crossorigin="anonymous"></script>
+<script src ="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"> </script>
+</body>
+</html>
