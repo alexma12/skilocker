@@ -17,7 +17,7 @@ var commentRoutes        = require("./routes/comments");
     authorizationRoutes   = require("./routes/authorization");
 
 
-mongoose.connect("mongodb://localhost:27017/SkiLocker",{ useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex: true});
+mongoose.connect("mongodb+srv://alexma123:qweasdzxc13542@cluster0-16iv6.mongodb.net/test?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex: true});
 app.use(express.static(__dirname + "/public"));
 app.use(flash());
 app.use(bodyParser.urlencoded({extended: true}));

@@ -84,7 +84,7 @@ router.get("/", function(req, res){
             } else {
               if(allItems.length === 0) {
                 req.flash("error", "No items match that query, please try again.");
-                res.redirect("/login");
+                res.redirect("/");
               } else {
                 res.render("homepage.ejs", {items: allItems,
                   currentUser: req.user,
