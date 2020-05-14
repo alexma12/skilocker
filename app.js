@@ -17,7 +17,7 @@ var commentRoutes        = require("./routes/comments");
     authorizationRoutes   = require("./routes/authorization");
 
 
-mongoose.connect("mongodb+srv://alexma123:qweasdzxc13542@cluster0-16iv6.mongodb.net/test?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex: true});
+mongoose.connect("mongodb+srv://alexma123:qweasdzxc13542@cluster0-16iv6.mongodb.net/test?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true,useCreateIndex: true}).then(() => console.log( 'Database Connected' )).catch(err => console.log( err ));
 app.use(express.static(__dirname + "/public"));
 app.use(flash());
 app.use(bodyParser.urlencoded({extended: true}));
