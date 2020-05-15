@@ -54,7 +54,7 @@ app.get("/", function(req, res){
 	res.render("homepage.ejs");
 });
 
-
-app.listen(2500, function(){
+var port = process.env.PORT || 3000;
+app.listen(port, function(){
 	console.log("SkiLocker Is Online");
 });
