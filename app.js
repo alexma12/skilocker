@@ -16,7 +16,7 @@ var commentRoutes        = require("./routes/comments");
     itemRoutes          = require("./routes/items"),
     authorizationRoutes   = require("./routes/authorization");
 
-
+mongoose.connect("mongodb://localhost/test" ,{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 mongoose.connect("mongodb+srv://alexma123:qweasdzxc13542@cluster0-rzpnd.mongodb.net/test?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 app.use(express.static(__dirname + "/public"));
 app.use(flash());
@@ -54,7 +54,7 @@ app.get("/", function(req, res){
 	res.render("homepage.ejs");
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 2500;
 app.listen(port, function(){
 	console.log("SkiLocker Is Online");
 });

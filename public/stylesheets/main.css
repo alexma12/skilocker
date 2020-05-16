@@ -175,6 +175,7 @@ body{
 }
 #imageEdit{
   border: 2px dotted black;
+  background-color: #ebebeb;
 }
 
 #avatarProfile{
@@ -227,9 +228,6 @@ body{
 
 }
 
-#customColour{
-  background-color: #ebebeb;
-}
 
 #avatarImage{
   padding-bottom: 0px;
@@ -255,4 +253,11 @@ body{
 
 .watchItem{
   background-color: blue;
+}
+
+.camera-icon{
+  transform: translate(43.5%, 37%) ;
+  height: 550px;
+  color: white;
+  font-size: 100px;
 }
