@@ -127,3 +127,8 @@ body{
   height: 34px;
   width: 34px;
 }
+
+#likesAndCondition{
+  position: sticky;
+
+}
